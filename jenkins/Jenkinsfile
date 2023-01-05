@@ -11,7 +11,7 @@ pipeline {
   }
 
   triggers {
-    cron('H 1 * * 1-5')
+    cron('0 1 * * 1-5')
   }
 
   agent { node { label 'master' } }
@@ -20,24 +20,24 @@ pipeline {
     stage('Step 1') {
       steps {
         echo "Step 1"
-        git branch: "main",
+        git branch: "master",
           credentialsId: 'YohannCstd',
           url: 'https://github.com/YohannCstd/cicd-static-website.git'
       }
     }
     stage('Step 2') {
       steps {
-        sh "docker build -t ${IMAGE_NAME}:${IMAGE_REL} -f /home/github/cicd-static-website/docker/Dockerfile ."
-        sh "[ -z "$(docker ps -a | grep ${CONTAINER_NAME} 2>/dev/null)" ] || docker rm -f container-static-ws"
+        sh "docker build -t ${IMAGE_NAME}:${IMAGE_REL} -f ../docker/Dockerfile"
+        sh "[ -z \"\$(docker ps -a | grep ${CONTAINER_NAME} 2>/dev/null)\" ] || docker rm -f container-static-ws"
         sh "docker run --detach --name ${CONTAINER_NAME} --rm --publish ${TEST_LOCAL_PORT}:80 ${IMAGE_NAME}:${IMAGE_REL}"
       }
     }
     stage('Step 3') {
       steps {
         script {
-          final String url = "http://20.166.18.162/:$%7BTEST_LOCAL_PORT%7D/index.html"
+          final String url = "http://localhost:${TEST_LOCAL_PORT}/index.html"
           final def (String response, int code) =
-                            sh(script: "curl -s -w '\n%{response_code}' http://20.166.18.162/:$%7BTEST_LOCAL_PORT%7D/index.html", returnStdout: true)
+                            sh(script: "curl -s -w '\\n%{response_code}'", returnStdout: true)
                                 .trim()
                                 .tokenize("\n")
 
@@ -51,3 +51,4 @@ pipeline {
     }
   }
 }
+
