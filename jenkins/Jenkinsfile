@@ -22,7 +22,7 @@ pipeline {
         echo "Step 1"
         git branch: "main",
           credentialsId: 'YohannCstd',
-          url: 'https://github.com/YohannCstd/cicd-static-website.git'
+          url: 'git@github.com:YohannCstd/devps.git'
       }
     }
     stage('Step 2') {
