@@ -20,7 +20,7 @@ pipeline {
     stage('Step 1') {
       steps {
         echo "Step 1"
-        git branch: "master",
+        git branch: "main",
           credentialsId: 'YohannCstd',
           url: 'https://github.com/YohannCstd/cicd-static-website.git'
       }
