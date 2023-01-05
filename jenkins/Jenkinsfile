@@ -22,7 +22,7 @@ pipeline {
         echo "Step 1"
         git branch: "master",
           credentialsId: '7e5d9a99-6500-49a6-9113-774748e349a3	',
-          url: 'git@github.com:YohannCstd/devps.git'
+          url: 'https://github.com/YohannCstd/devps.git'
       }
     }
     stage('Step 2') {
