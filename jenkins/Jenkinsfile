@@ -21,7 +21,8 @@ pipeline {
       echo "Step 1"
       git branch: "master",
         credentialsId: '917fd0bc-d7df-47c7-922c-55fc235bc0d9',
-        url: 'https://github.com/YohanndCstd/cicd-static-website.git'
+        url: 'https://github.com/YohannCstd/cicd-static-website.git'
     }
   }
 }
+
