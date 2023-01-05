@@ -43,10 +43,10 @@ pipeline {
         script {
           final String url = "http://localhost:${TEST_LOCAL_PORT}/index.html"
           final def (String response, int code) =
-                            sh(script: "curl -s -w '\\n%{response_code}', returnStdout: true)
+                            sh(script: "curl -s -w '\\n%{response_code}'", returnStdout: true)
                                 .trim()
                                 .tokenize("\n")
-
+                                
           echo "HTTP response status code: $code"
 
           if (code == 200) {
