@@ -14,13 +14,7 @@ pipeline {
     cron('0 1 * * 1-5')
   }
 
-  agent {
-    docker {
-      image 'docker:dind'
-      args '-p 2376:2376 -p 3000:3000'
-      reuseNode true
-    }
-  }
+  agent { node { label 'master' } }
 
   stages {
     stage('Step 1') {
