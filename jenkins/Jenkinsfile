@@ -23,6 +23,28 @@ pipeline {
         credentialsId: '917fd0bc-d7df-47c7-922c-55fc235bc0d9',
         url: 'https://github.com/YohannCstd/cicd-static-website.git'
     }
+    stage('Step 2') {
+      sh "docker build -t ${IMAGE_NAME}:${IMAGE_REL} -f ../docker/Dockerfile"
+      sh "[ -z \"\$(docker ps -a | grep ${CONTAINER_NAME} 2>/dev/null)\" ] || docker rm -f container-static-ws"
+      sh "docker run --detach --name ${CONTAINER_NAME} --rm --publish ${TEST_LOCAL_PORT}:80 ${IMAGE_NAME}:${IMAGE_REL}"
+    }
+    stage('Step 3') {
+      steps {
+        script {
+          final String url = "http://localhost:${TEST_LOCAL_PORT}/index.html"
+          final def (String response, int code) =
+                            sh(script: "curl -s -w '\\n%{response_code}', returnStdout: true)
+                                .trim()
+                                .tokenize("\n")
+
+          echo "HTTP response status code: $code"
+
+          if (code == 200) {
+            echo response
+          }
+        }
+      }
+    }
   }
 }
 
