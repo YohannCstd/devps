@@ -21,8 +21,8 @@ pipeline {
       steps {
         echo "Step 1"
         git branch: "main",
-          credentialsId: '79219daa-7d9a-442e-acc7-1b3d157ad6c6',
-          url: 'git@github.com:YohannCstd/devps.git'
+          credentialsId: 'YohannCstd',
+          url: 'https://github.com/YohannCstd/devps.git'
       }
     }
     stage('Step 2') {
