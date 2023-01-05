@@ -20,8 +20,8 @@ pipeline {
     stage('Step 1') {
       echo "Step 1"
       git branch: "master",
-        credentialsId: 'YourGithubSshCredentials',
-        url: 'https://github.com/yourAccount/cicd-static-website.git'
+        credentialsId: '917fd0bc-d7df-47c7-922c-55fc235bc0d9',
+        url: 'https://github.com/YohannCstd/cicd-static-website.git'
     }
     stage('Step 2') {
       sh "docker build -t ${IMAGE_NAME}:${IMAGE_REL} -f ../docker/Dockerfile"
