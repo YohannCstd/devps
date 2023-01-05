@@ -2,4 +2,4 @@ FROM nginx:1.15.8
 
 LABEL Author "contact@test.fr"
 
-COPY site /src
+COPY /usr/share/nginx/html site
